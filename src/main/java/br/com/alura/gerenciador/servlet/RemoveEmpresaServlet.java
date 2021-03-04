@@ -1,5 +1,7 @@
 package br.com.alura.gerenciador.servlet;
 
+import br.com.alura.gerenciador.modelo.Banco;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
