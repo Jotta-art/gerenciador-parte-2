@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 //oi
-@WebServlet(urlPatterns = "/oi")
+//@WebServlet(urlPatterns = "/oi")
 public class OiMundoServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
