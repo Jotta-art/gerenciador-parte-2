@@ -2,6 +2,7 @@ package br.com.alura.gerenciador.servlet;
 
 import br.com.alura.gerenciador.acao.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,11 @@ public class UnicaEntradaServlet extends HttpServlet {
 
         String paramAcao = request.getParameter("acao");
 
+        String nome = null;
+
         if (paramAcao.equals("ListaEmpresas")) {
             ListaEmpresas acao = new ListaEmpresas();
-            acao.executa(request, response);
+            nome = acao.executa(request, response);
 
         } else if (paramAcao.equals("RemoveEmpresa")) {
             RemoveEmpresa acao = new RemoveEmpresa();
@@ -34,5 +37,8 @@ public class UnicaEntradaServlet extends HttpServlet {
             NovaEmpresa acao = new NovaEmpresa();
             acao.executa(request, response);
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher(nome);
+        rd.forward(request, response);
     }
 }
