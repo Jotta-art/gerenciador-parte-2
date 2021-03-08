@@ -14,7 +14,7 @@ public class ListaEmpresas {
 
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("listando empresa");
+        System.out.println("acao listando empresa");
 
         Banco banco = new Banco();
         List<Empresa> lista = banco.getEmpresas();
