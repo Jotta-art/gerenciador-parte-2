@@ -3,7 +3,6 @@ package br.com.alura.gerenciador.acao;
 import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,6 @@ public class ListaEmpresas {
 
         request.setAttribute("empresas", lista);
 
-        return "listaEmpresas.jsp";
+        return "forward:listaEmpresas.jsp";
     }
 }
