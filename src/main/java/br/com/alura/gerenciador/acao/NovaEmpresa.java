@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class NovaEmpresa {
 
-    public void executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String executa(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         System.out.println("acao cadastrando nova empresa");
 
@@ -35,6 +35,6 @@ public class NovaEmpresa {
         Banco banco = new Banco();
         banco.adiciona(empresa);
 
-        response.sendRedirect("entrada?acao=ListaEmpresas");
+        return "redirect:entrada?acao=ListaEmpresas";
     }
 }
