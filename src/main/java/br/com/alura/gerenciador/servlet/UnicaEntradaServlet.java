@@ -1,6 +1,6 @@
 package br.com.alura.gerenciador.servlet;
 
-import br.com.alura.gerenciador.acao.*;
+import br.com.alura.gerenciador.acao.Acao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,33 +17,47 @@ public class UnicaEntradaServlet extends HttpServlet {
 
         String paramAcao = request.getParameter("acao");
 
-        String nome = null;
+        String nomeDaClasse = "br.com.alura.gerenciador.acao." + paramAcao;
 
-        if (paramAcao.equals("ListaEmpresas")) {
-            ListaEmpresas acao = new ListaEmpresas();
+        String nome;
+        try {
+            Class classe = Class.forName(nomeDaClasse);
+            Acao acao = (Acao) classe.newInstance();
             nome = acao.executa(request, response);
-
-        } else if (paramAcao.equals("RemoveEmpresa")) {
-            RemoveEmpresa acao = new RemoveEmpresa();
-            nome = acao.executa(request, response);
-
-        } else if (paramAcao.equals("MostraEmpresa")) {
-            MostraEmpresa acao = new MostraEmpresa();
-            nome = acao.executa(request, response);
-        } else if (paramAcao.equals("AlteraEmpresa")) {
-            AlteraEmpresa acao = new AlteraEmpresa();
-            nome = acao.executa(request, response);
-        } else if (paramAcao.equals("NovaEmpresa")) {
-            NovaEmpresa acao = new NovaEmpresa();
-            nome = acao.executa(request, response);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new ServletException(e);
         }
 
         String[] tipoEEndereco = nome.split(":");
-        if (tipoEEndereco[0].equals("forward")){
-            RequestDispatcher rd = request.getRequestDispatcher(tipoEEndereco[1]);
+        if (tipoEEndereco[0].equals("forward")) {
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/" + tipoEEndereco[1]);
             rd.forward(request, response);
         } else {
             response.sendRedirect(tipoEEndereco[1]);
         }
+
+
+//        if (paramAcao.equals("ListaEmpresas")) {
+//            ListaEmpresas acao = new ListaEmpresas();
+//            nome = acao.executa(request, response);
+//
+//        } else if (paramAcao.equals("RemoveEmpresa")) {
+//            RemoveEmpresa acao = new RemoveEmpresa();
+//            nome = acao.executa(request, response);
+//
+//        } else if (paramAcao.equals("MostraEmpresa")) {
+//            MostraEmpresa acao = new MostraEmpresa();
+//            nome = acao.executa(request, response);
+//        } else if (paramAcao.equals("AlteraEmpresa")) {
+//            AlteraEmpresa acao = new AlteraEmpresa();
+//            nome = acao.executa(request, response);
+//        } else if (paramAcao.equals("NovaEmpresa")) {
+//            NovaEmpresa acao = new NovaEmpresa();
+//            nome = acao.executa(request, response);
+//        } else if (paramAcao.equals("NovaEmpresaForm")) {
+//            NovaEmpresaForm acao = new NovaEmpresaForm();
+//            nome = acao.executa(request, response);
+//        }
+
     }
 }
